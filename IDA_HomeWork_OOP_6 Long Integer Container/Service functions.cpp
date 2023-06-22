@@ -43,6 +43,49 @@ int Get_Int_SA() {
 		return Get_Int_SA();
 	}
 }
+long long Get_LL_SA() {
+	std::string a;
+	std::cin.sync();
+	std::cin.clear();
+	getline(std::cin, a);
+	if (a != "")
+	{
+
+		if ((a.find_first_not_of("-0123456789") == -1))
+		{
+			for (int i = 1; i < a.size(); i++) // определяем есть ли минусы кроме первого символа
+			{
+				if (a[i] == '-')
+				{
+					std::cout << "Input Error: Minus misstanding. [LONG INTEGER] expected.\n";
+					return Get_LL_SA();
+				}
+			}
+			try
+			{
+				return stoll(a);
+			}
+			catch (std::out_of_range)
+			{
+				std::cout << "Input Error: Data type overflow. [LONG INTEGER] expected.\n";
+				return Get_LL_SA();
+			}
+
+
+		}
+		else
+		{
+			std::cout << "Input Error: Incorrect symbol. [LONG INTEGER] expected.\n";
+			return Get_LL_SA();
+		}
+	}
+	else
+	{
+		std::cout << "Input Error: NULL input. [LONG INTEGER] expected.\n";
+		return Get_LL_SA();
+	}
+}
+
 int Get_Int_Positive()
 {
 	std::string a;

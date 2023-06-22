@@ -6,6 +6,7 @@
 
 // Service functions prototypes ------------------------------------
 int Get_Int_SA();			// String-analysis вариант фильтра INTEGER
+long long Get_LL_SA();
 int Get_Int_Positive();		// String-Analysis вариант проверки ввода INTEGER_POSITIVE	
 int Get_Int_Positive(int BOTTOM_limit, int UP_limit, std::string comment);
 int Get_Int_PG();			// peek&get вариант проверки ввода INTEGER	

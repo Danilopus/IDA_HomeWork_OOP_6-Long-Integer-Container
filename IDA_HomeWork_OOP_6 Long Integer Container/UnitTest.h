@@ -21,7 +21,6 @@ public:
 		test_report += Long_Integer_Container_test_5(test_obj) ? "Ok" : "failed";
 		test_report += "\nOperator << cin test: ";
 		test_report += Long_Integer_Container_test_6(test_obj) ? "Ok" : "failed";
-
 		
 		return test_report;
 	}
