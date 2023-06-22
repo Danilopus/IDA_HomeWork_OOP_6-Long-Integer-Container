@@ -290,15 +290,18 @@ bool Long_Integer_Container::operator==(const Long_Integer_Container& another_Mo
 
 std::ostream& operator<<(std::ostream& out, Long_Integer_Container* Long_Integer_Container_obj)
 {
-	out << "[";
-	for (int i=0; i < (*Long_Integer_Container_obj)._size; i++)
+	out << "[ ";
+	for (int i=0; i < Long_Integer_Container_obj->_size; i++)
 	out << Long_Integer_Container_obj->_long_values[i] << " | ";
+	out << "\b\b]";
 	return out;
 }
 
-std::ostream& operator<<(std::ostream& out, Long_Integer_Container& Money_holder)
+std::ostream& operator<<(std::ostream& out, Long_Integer_Container& Long_Integer_Container_obj)
 {
-	//out << Money_holder.Get_roubles() << ", " << Money_holder.Get_coins();
-	out << Money_holder.Get_roubles() << " roubles " << Money_holder.Get_coins() << " coins ";
+	out << "[ ";
+	for (int i = 0; i < Long_Integer_Container_obj._size; i++)
+		out << Long_Integer_Container_obj._long_values[i] << " | ";
+	out << "\b\b]";
 	return out;
 }

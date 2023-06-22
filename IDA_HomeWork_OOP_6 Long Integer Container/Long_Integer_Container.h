@@ -49,10 +49,6 @@ public:
 
 
 	// Setters // Getters --------------------------------------------------
-	Long_Integer_Container& Set_roubles(long long rubles);
-	Long_Integer_Container& Set_coins(long long coins);
-	long long Get_roubles() { return _roubles; }
-	int Get_coins() { return _coins; }
 
 	// Data manage ---------------------------------------------------------
 	
@@ -97,7 +93,6 @@ public:
 		return *this;
 	}
 
-
 	size_t Size() { return _size; }
 	
 	void Clear()
@@ -108,21 +103,20 @@ public:
 		_long_values = nullptr;
 	}
 
-	long long int* Begin();
-
-	long long int* End();
-
-	friend std::ostream& operator<<(std::ostream& output, const Vector& v);
-
-	friend std::istream& operator>>(std::istream& in, Vector& v);
+	long long int* begin()
+	{
+		return _long_values;
+	}
+	long long int* end()
+	{
+		return &_long_values[_size - 1];
+	}
 
 	long long int& operator[](int index);
 
 	// Shows ---------------------------------------------------------------
 	void ShowValues() { std::cout << this; }
-	//void ShowValues() { std::cout << this; }
 	static void ShowMethods();
-	static void ShowAvailableMoneyObjects();
 
 	// Inputs handle -------------------------------------------------------	
 		
@@ -170,11 +164,18 @@ public:
 	Long_Integer_Container& operator*(const Long_Integer_Container& another_Money) const;
 	Long_Integer_Container& operator*(double multiplier) const;
 	Long_Integer_Container& operator/(double divider) const;
-	double operator/(const Long_Integer_Container& another_Money) const;
-	bool operator>(const Long_Integer_Container& another_Money) const;
+	double operator / (const Long_Integer_Container& another_Money) const;
+	bool operator > (const Long_Integer_Container& another_Money) const;
 	bool operator<(const Long_Integer_Container& another_Money) const;
 	bool operator==(const Long_Integer_Container& another_Money) const;
 
-	friend std::ostream& operator << (std::ostream& out, Long_Integer_Container* just_a_Money);
-	friend std::ostream& operator << (std::ostream& out, Long_Integer_Container& Money_holder);
+	long long& operator[](size_t index)	{ return *(_long_values + index); }
+
+	friend std::ostream& operator << (std::ostream& out, Long_Integer_Container* Long_Integer_Container_obj);
+	friend std::ostream& operator << (std::ostream& out, Long_Integer_Container& Long_Integer_Container_obj);
+	friend std::istream& operator >> (std::istream& in, Long_Integer_Container& Long_Integer_Container_obj)
+	{
+
+	}
+
 };
