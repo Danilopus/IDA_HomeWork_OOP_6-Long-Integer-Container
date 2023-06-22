@@ -19,7 +19,7 @@
 //My own headers
 #include "Service functions.h"
 #include "MainMenu.h"
-#include "Money.h"
+#include "Long_Integer_Container.h"
 
 
 
@@ -63,7 +63,7 @@ int main()
 	//setlocale(LC_CTYPE, "Russian");
 	//system("mode con cols=60 lines=40"); 
 	Main_menu MainMenu;	
-	MainMenu.AddElement("OOP Home Work 06:  ");	// Homework name
+	MainMenu.AddElement("OOP Home Work 06:  Long Integer Container class");	// Homework name
 	MainMenu.AddElement("Long Integer Container class demo with overloaded operators:\n\t << | >> ");
 	//MainMenu.AddElement("XXX");
 	do 

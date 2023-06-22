@@ -24,7 +24,7 @@
     <ClCompile Include="Service functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Money.cpp">
+    <ClCompile Include="Long_Integer_Container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="!___questions___.cpp">
@@ -38,7 +38,7 @@
     <ClInclude Include="Service functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Money.h">
+    <ClInclude Include="Long_Integer_Container.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

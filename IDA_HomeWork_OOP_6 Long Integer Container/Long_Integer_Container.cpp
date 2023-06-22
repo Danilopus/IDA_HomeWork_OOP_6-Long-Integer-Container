@@ -1,4 +1,4 @@
-﻿#include "Money.h"
+﻿#include "Long_Integer_Container.h"
 
 
 std::map <int, std::string> keycodes{ {27, "Esc"}, {13, "Enter"}, {48, "0"}, {57, "9"} };
@@ -7,45 +7,34 @@ std::string big_space = "                                                       
 std::map <int, int> codes_of_digits{ {49, 0}, {50, 1}, {51, 2},{52, 3},{53, 4},{54, 5},{55, 6},{56, 7},{57, 8} };
 // Операции с дробями 
 //std::map <int, std::string> Fraction::codes_of_operation{ {1," + "}, {2," - "}, {3," * "}, {4, " / "}, {5, "++"}, {6,"++"}, {7, "--"}, {8,"--"},{9,"+"}, {0, "-"} };
-std::map <int, std::string> Money::codes_of_operation{ {1," + "}, {2," - "}, {3," * "}, {4, " / "}, {5, " * "}, {6," / "}, {7, " > "}, {8," < "},{9," = "}, {0, "=="} };
-//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-//Q7 есть ли утечка памяти? В векторе создается копия *this? А сам *this остаеся в памяти без указателя? 
-// Надо ли удалять (вариант под комментариями)?
-// *Конструктор копирования и деструктор по умолчанию
-//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+std::map <int, std::string> Long_Integer_Container::codes_of_operation{ {1," + "}, {2," - "}, {3," * "}, {4, " / "}, {5, " * "}, {6," / "}, {7, " > "}, {8," < "},{9," = "}, {0, "=="} };
 
-std::vector <Money> Money::_money_list;
 
-Money::Money(long long coins, long long roubles) 
+Long_Integer_Container::Long_Integer_Container() 
 { 
-	Set_roubles(roubles).Set_coins(coins); 
-	_money_list.push_back(*this); 
-	// delete this;
+	_size = 0;
+	_capacity = 0;
+	_long_values = nullptr;
 }
 
-void Money::Initialisation(int provided_at_startup_money_holders_quantity)
+void Long_Integer_Container::Initialisation(int provided_at_startup_money_holders_quantity)
 {
 	for (int i = 0; i < provided_at_startup_money_holders_quantity; i++)
-		new Money(Get_Random(0, 100), Get_Random(0, 100));
+		new Long_Integer_Container(Get_Random(0, 100), Get_Random(0, 100));
 }
 
-void Money::Memory_Clean()
-{
-	//for (int i = 0; i < _money_list.size(); i++)
-	//	delete[] &_money_list[i];
-	_money_list.clear();
-}
+void Long_Integer_Container::Memory_Clean() {}
 
-Money& Money::Set_roubles(long long rubles) { _roubles = rubles; return *this; }
+Long_Integer_Container& Long_Integer_Container::Set_roubles(long long rubles) { _roubles = rubles; return *this; }
 
-Money& Money::Set_coins(long long coins)
+Long_Integer_Container& Long_Integer_Container::Set_coins(long long coins)
 {
 	_coins = coins % 100;
 	Set_roubles(_roubles += (coins / 100));
 	return *this;
 }
 
-void Money::ShowMethods()
+void Long_Integer_Container::ShowMethods()
 {
 	std::cout << "\n\n -------- Available methods: --------\n";
 	std::cout << "Summation [+] -> [1]" << "\t\t" << "Multyply by [real] -> [5]" << '\n';
@@ -66,14 +55,14 @@ void Money::ShowMethods()
 
 }
 
-void Money::ShowAvailableMoneyObjects()
+void Long_Integer_Container::ShowAvailableMoneyObjects()
 {
 	for (int i = 0; i < _money_list.size(); i++)
 		std::cout << "\nMoney holder [" << i + 1 << "] -> " << _money_list[i];
 	//_money_list[i].ShowValues();
 }
 
-int Money::UserChoiceHandle_getch()
+int Long_Integer_Container::UserChoiceHandle_getch()
 {
 	std::cout << "Choose method: ";
 	int method_choice = Check_method_input_getch();
@@ -83,10 +72,10 @@ int Money::UserChoiceHandle_getch()
 
 	if (method_choice < 5 || method_choice > 6)//разделеям бинарные операции между объектами и числами
 	{
-		Money& Operand_1 = *Get_Operand_getch(1);
+		Long_Integer_Container& Operand_1 = *Get_Operand_getch(1);
 		if (&Operand_1 == nullptr) return 0;
 		std::cout << "\n   " << codes_of_operation[method_choice];
-		Money& Operand_2 = *Get_Operand_getch(2);
+		Long_Integer_Container& Operand_2 = *Get_Operand_getch(2);
 		if (&Operand_2 == nullptr) return 0;
 
 		Operation_module(method_choice, Operand_1, Operand_2);
@@ -94,7 +83,7 @@ int Money::UserChoiceHandle_getch()
 	}
 	else
 	{
-		Money& Operand_1 = *Get_Operand_getch(1);
+		Long_Integer_Container& Operand_1 = *Get_Operand_getch(1);
 		if (&Operand_1 == nullptr) return 0;
 		std::cout << "\nEnter a [real] -> ";
 		double Operand_2 = Get_Dbl_Positive();
@@ -108,24 +97,24 @@ int Money::UserChoiceHandle_getch()
 	return 0;
 }
 
-int Money::UserChoiceHandle_getline()
+int Long_Integer_Container::UserChoiceHandle_getline()
 {
 	int action = Check_action_input_getline();
 	if (action == -1) return 1;
 	std::cout << "-------->  " << codes_of_operation[action] << big_space;
 
 
-	Money& Operand_1 = Get_Operand_getline(1);
+	Long_Integer_Container& Operand_1 = Get_Operand_getline(1);
 	if (&Operand_1 == nullptr) return 1;
 	std::cout << "\n   " << codes_of_operation[action];
-	Money& Operand_2 = Get_Operand_getline(2);
+	Long_Integer_Container& Operand_2 = Get_Operand_getline(2);
 	if (&Operand_2 == nullptr) return 1;
 
 	Operation_module(action, Operand_1, Operand_2);
 }
 
-Money* Money::Get_Operand_getch(int Operand_number)
-//static Money& Get_Operand_getch(int Operand_number)
+Long_Integer_Container* Long_Integer_Container::Get_Operand_getch(int Operand_number)
+//static Long_Integer_Container& Get_Operand_getch(int Operand_number)
 {
 	if (Operand_number)
 		std::cout << "\nOperand_" << Operand_number << ": Choose operand from list [press number] or enter new [press Enter]";
@@ -164,7 +153,7 @@ Money* Money::Get_Operand_getch(int Operand_number)
 	} while (true);
 }
 
-Money& Money::Get_Operand_getline(int Operand_number) {
+Long_Integer_Container& Long_Integer_Container::Get_Operand_getline(int Operand_number) {
 
 	if (Operand_number)	std::cout << "\nchoose operand " << Operand_number << ": ";
 	else std::cout << "\nchoose operand: ";
@@ -176,7 +165,7 @@ Money& Money::Get_Operand_getline(int Operand_number) {
 	return _money_list[Money_index];
 }
 
-Money& Money::New_money_holder_input()
+Long_Integer_Container& Long_Integer_Container::New_money_holder_input()
 {
 	std::cout << big_space;
 	std::cout << "\nEnter roubles -> ";
@@ -184,10 +173,10 @@ Money& Money::New_money_holder_input()
 	std::cout << "Enter coins   -> ";
 	int coins = Get_Int_Positive();
 
-	return *new Money(coins, roubles);
+	return *new Long_Integer_Container(coins, roubles);
 }
 
-int Money::Check_method_input_getch()
+int Long_Integer_Container::Check_method_input_getch()
 {
 	int keycode = _getch();
 	std::cout << console_clear;
@@ -199,7 +188,7 @@ int Money::Check_method_input_getch()
 	Check_method_input_getch();
 }
 
-int Money::Check_action_input_getline()
+int Long_Integer_Container::Check_action_input_getline()
 {
 	int keycode = Get_Int_Positive(1, 9, "Choose a number of operation [1..9] ");
 	std::cout << console_clear;
@@ -209,7 +198,7 @@ int Money::Check_action_input_getline()
 	return keycode;
 }
 
-void Money::Operation_module(int action, Money& Operand_1, Money& Operand_2)
+void Long_Integer_Container::Operation_module(int action, Long_Integer_Container& Operand_1, Long_Integer_Container& Operand_2)
 {
 	std::cout << "\n\n" << Operand_1 << codes_of_operation[action] << Operand_2 << " = ";
 	bool logical_statement = 0;
@@ -236,7 +225,7 @@ void Money::Operation_module(int action, Money& Operand_1, Money& Operand_2)
 		std::cout << _money_list[_money_list.size() - 1];
 }
 
-void Money::Operation_module(int action, Money& Operand_1, double Operand_2)
+void Long_Integer_Container::Operation_module(int action, Long_Integer_Container& Operand_1, double Operand_2)
 {
 	std::cout << "\n\n" << Operand_1 << codes_of_operation[action] << Operand_2 << " = ";
 	switch (action)
@@ -248,64 +237,64 @@ void Money::Operation_module(int action, Money& Operand_1, double Operand_2)
 	std::cout << _money_list[_money_list.size() - 1];
 }
 
-Money& Money::operator+(const Money& another_Money) const
+Long_Integer_Container& Long_Integer_Container::operator+(const Long_Integer_Container& another_Money) const
 {
-	return *new Money((_coins + another_Money._coins), (_roubles + another_Money._roubles));
+	return *new Long_Integer_Container((_coins + another_Money._coins), (_roubles + another_Money._roubles));
 }
 
-Money& Money::operator-(const Money& another_Money) const
+Long_Integer_Container& Long_Integer_Container::operator-(const Long_Integer_Container& another_Money) const
 {
 	long long full_coin_amount = (_roubles * 100 + _coins) - (another_Money._roubles * 100 + another_Money._coins);
 	assert((full_coin_amount >= 0) && "Debt");
-	return *new Money(full_coin_amount);
+	return *new Long_Integer_Container(full_coin_amount);
 }
 
-Money& Money::operator*(const Money& another_Money) const
+Long_Integer_Container& Long_Integer_Container::operator*(const Long_Integer_Container& another_Money) const
 {
-	return *new Money((_coins * another_Money._coins), (_roubles * another_Money._roubles));
+	return *new Long_Integer_Container((_coins * another_Money._coins), (_roubles * another_Money._roubles));
 }
 
-Money& Money::operator*(double multiplier) const
+Long_Integer_Container& Long_Integer_Container::operator*(double multiplier) const
 {
-	return *new Money(long long((_coins + _roubles * 100) * multiplier));
+	return *new Long_Integer_Container(long long((_coins + _roubles * 100) * multiplier));
 }
 
-Money& Money::operator/(double divider) const
+Long_Integer_Container& Long_Integer_Container::operator/(double divider) const
 {
-	return *new Money((_coins + _roubles * 100) / divider);
+	return *new Long_Integer_Container((_coins + _roubles * 100) / divider);
 }
 
-double Money::operator/(const Money& another_Money) const //процент какая первая сумма от второй
+double Long_Integer_Container::operator/(const Long_Integer_Container& another_Money) const //процент какая первая сумма от второй
 {
 	double coefficient = double((_roubles * 100 + _coins)) / double((another_Money._roubles * 100 + another_Money._coins));
 	return coefficient * 100;
 }
 
-bool Money::operator>(const Money& another_Money) const
+bool Long_Integer_Container::operator>(const Long_Integer_Container& another_Money) const
 {
 	long long full_coin_amount = (_roubles * 100 + _coins) - (another_Money._roubles * 100 + another_Money._coins);
 	return (full_coin_amount < 0 ? 0 : 1);
 }
 
-bool Money::operator<(const Money& another_Money) const
+bool Long_Integer_Container::operator<(const Long_Integer_Container& another_Money) const
 {
 	long long full_coin_amount = (_roubles * 100 + _coins) - (another_Money._roubles * 100 + another_Money._coins);
 	return (full_coin_amount < 0 ? 1 : 0);
 }
 
-bool Money::operator==(const Money& another_Money) const
+bool Long_Integer_Container::operator==(const Long_Integer_Container& another_Money) const
 {
 	long long full_coin_amount = (_roubles * 100 + _coins) - (another_Money._roubles * 100 + another_Money._coins);
 	return (full_coin_amount == 0 ? 1 : 0);
 }
 
-std::ostream& operator<<(std::ostream& out, Money* just_a_Money)
+std::ostream& operator<<(std::ostream& out, Long_Integer_Container* just_a_Money)
 {
 	out << just_a_Money->Get_roubles() << " roubles" << just_a_Money->Get_coins() << " coins";
 	return out;
 }
 
-std::ostream& operator<<(std::ostream& out, Money& Money_holder)
+std::ostream& operator<<(std::ostream& out, Long_Integer_Container& Money_holder)
 {
 	//out << Money_holder.Get_roubles() << ", " << Money_holder.Get_coins();
 	out << Money_holder.Get_roubles() << " roubles " << Money_holder.Get_coins() << " coins ";

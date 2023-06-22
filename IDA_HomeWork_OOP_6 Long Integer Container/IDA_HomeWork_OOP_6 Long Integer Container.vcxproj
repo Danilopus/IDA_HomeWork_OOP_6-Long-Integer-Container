@@ -129,13 +129,13 @@
   <ItemGroup>
     <ClCompile Include="!___questions___.cpp" />
     <ClCompile Include="MainMenu.cpp" />
-    <ClCompile Include="Money.cpp" />
+    <ClCompile Include="Long_Integer_Container.cpp" />
     <ClCompile Include="IDA_Home_DEFAULT.cpp" />
     <ClCompile Include="Service functions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenu.h" />
-    <ClInclude Include="Money.h" />
+    <ClInclude Include="Long_Integer_Container.h" />
     <ClInclude Include="Service functions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
