@@ -34,11 +34,9 @@ void Task_1(std::string name_of_task)
 	{
 		system("cls");
 		std::cout << "***\t" << name_of_task << "\n";
+		// написал отдельный класс для тестирования
+		std::cout << UnitTest::Long_Integer_Container_test();		
 
-		//std::string tmp = UnitTest::Long_Integer_Container_test();
-		//std::cout << tmp;
-		std::cout << UnitTest::Long_Integer_Container_test();
-		
 		std::cout << "\n\nEsc - exit | any key to continue";
 	} while (_getch() != 27);
 }
