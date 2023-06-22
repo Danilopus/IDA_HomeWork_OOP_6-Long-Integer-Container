@@ -20,11 +20,19 @@ class Long_Integer_Container
 	{
 
 	}
+	void Shrink_capacity()
+	{
+
+	}
 
 public:
 
 	// Constructors // Initialisation // Destructors // Memory Manage -------
 	Long_Integer_Container();
+	Long_Integer_Container(const Long_Integer_Container& Long_Integer_Container_obj)
+	{
+		//copy constructor
+	}
 
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 //Q8 как сделать универсальныю инициализацию Long_Integer_Container_obj {5, 7, 9}
@@ -48,23 +56,70 @@ public:
 
 	// Data manage ---------------------------------------------------------
 	
-	Long_Integer_Container& pushback(long long new_value)
+	Long_Integer_Container& pushfront(long long new_value)
 	{
-		if (_capacity == _size) Add_capacity();
-		_long_values[_size] = new_value;
+		if ( _size >= _capacity) Add_capacity();
+		for (int i = _size; i > 0; i--)
+			_long_values[i] = _long_values[i - 1];
+		_long_values[0] = new_value;
 		_size++;
+		return *this;
 	}
-	long long& popback()
+	Long_Integer_Container& popront()
 	{
 		_size--;
-		return _long_values[_size];
-
+		if (_size == 0) { Clear(); return *this ; } //throw exception:"container is empty
+		if (_size < _capacity / 2) Shrink_capacity();
+		for (int i = 0; i < _size; i++)
+			_long_values[i] = _long_values[i + 1];
+		return *this;
+	}	
+	Long_Integer_Container& pushback(long long new_value)
+	{
+		if ( _size == _capacity) Add_capacity();
+		_long_values[_size] = new_value;
+		_size++;
+		return *this;
+	}
+	Long_Integer_Container& popback()
+	{
+		_size--;
+		if (_size == 0) { Clear(); return  *this; }
+		if (_size < _capacity / 2) Shrink_capacity();
+		return *this;
+	}
+	Long_Integer_Container& insert(size_t pos, long long  new_value)
+	{
+		if (_size >= _capacity) Add_capacity();
+		for (int i = _size; i < pos; i--)
+			_long_values[i] = _long_values[i - 1];
+		_long_values[pos] = new_value;
+		return *this;
 	}
 
 
+	size_t Size() { return _size; }
+	
+	void Clear()
+	{
+		delete[] _long_values;
+		_size = 0;
+		_capacity = 0;
+		_long_values = nullptr;
+	}
+
+	long long int* Begin();
+
+	long long int* End();
+
+	friend std::ostream& operator<<(std::ostream& output, const Vector& v);
+
+	friend std::istream& operator>>(std::istream& in, Vector& v);
+
+	long long int& operator[](int index);
 
 	// Shows ---------------------------------------------------------------
-	void ShowValues() { std::cout << *this; }
+	void ShowValues() { std::cout << this; }
 	//void ShowValues() { std::cout << this; }
 	static void ShowMethods();
 	static void ShowAvailableMoneyObjects();

@@ -288,9 +288,11 @@ bool Long_Integer_Container::operator==(const Long_Integer_Container& another_Mo
 	return (full_coin_amount == 0 ? 1 : 0);
 }
 
-std::ostream& operator<<(std::ostream& out, Long_Integer_Container* just_a_Money)
+std::ostream& operator<<(std::ostream& out, Long_Integer_Container* Long_Integer_Container_obj)
 {
-	out << just_a_Money->Get_roubles() << " roubles" << just_a_Money->Get_coins() << " coins";
+	out << "[";
+	for (int i=0; i < (*Long_Integer_Container_obj)._size; i++)
+	out << Long_Integer_Container_obj->_long_values[i] << " | ";
 	return out;
 }
 
