@@ -26,25 +26,19 @@
 // Homework OOP 6 ----------------------------------------------------	
 
 
-//Task 1 Money class demo with overloaded operators:\n\t + | - | / | * | > | < | =
+//Task 1 Long Integer Container class demo with overloaded operators:\n\t + | = | << | >> 
 void Task_1(std::string name_of_task)
 {
-	std::cout << "Enter provided_at_startup_money_holders_quantity -> ";
-	//int provided_at_startup_money_holders_quantity = Get_Int_Positive(0, 10, "it's too much, reasonable limit is 10 -> ");
-	//Money::Initialisation(provided_at_startup_money_holders_quantity);
-	Money::Initialisation(Get_Int_Positive(0, 10, "it's too much, reasonable limit is 10 -> "));
-
+	
 	do
 	{
 		system("cls");
 		std::cout << "***\t" << name_of_task << "\n";
-		Money::ShowAvailableMoneyObjects();
-		Money::ShowMethods();
-		if (Money::UserChoiceHandle_getch()) break;
 
+		UnitTest::Long_Integer_Container();
+		
 		std::cout << "\n\nEsc - exit | any key to continue";
 	} while (_getch() != 27);
-	Money::Memory_Clean();
 }
 
 //Task 2
@@ -64,7 +58,7 @@ int main()
 	//system("mode con cols=60 lines=40"); 
 	Main_menu MainMenu;	
 	MainMenu.AddElement("OOP Home Work 06:  Long Integer Container class");	// Homework name
-	MainMenu.AddElement("Long Integer Container class demo with overloaded operators:\n\t << | >> ");
+	MainMenu.AddElement("Long Integer Container class demo with overloaded operators:\n\t + | = | << | >> ");
 	//MainMenu.AddElement("XXX");
 	do 
 	{		

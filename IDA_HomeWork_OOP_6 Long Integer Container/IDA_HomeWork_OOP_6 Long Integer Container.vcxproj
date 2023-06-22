@@ -130,13 +130,15 @@
     <ClCompile Include="!___questions___.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Long_Integer_Container.cpp" />
-    <ClCompile Include="IDA_Home_DEFAULT.cpp" />
+    <ClCompile Include="!IDA_Home_DEFAULT.cpp" />
     <ClCompile Include="Service functions.cpp" />
+    <ClCompile Include="UnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Long_Integer_Container.h" />
     <ClInclude Include="Service functions.h" />
+    <ClInclude Include="UnitTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

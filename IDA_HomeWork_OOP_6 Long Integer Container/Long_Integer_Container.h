@@ -76,7 +76,7 @@ public:
 		_size++;
 		return *this;
 	}
-	Long_Integer_Container& popront()
+	Long_Integer_Container& popfront()
 	{
 		_size--;
 		if (_size == 0) { Clear(); return *this ; } //throw exception:"container is empty
@@ -108,7 +108,7 @@ public:
 		return *this;
 	}
 
-	size_t Size() { return _size; }
+	size_t size() { return _size; }
 
 	long long int* begin()
 	{
@@ -129,7 +129,7 @@ public:
 
 	// Shows ---------------------------------------------------------------
 	void ShowValues() { std::cout << this; }
-	static void ShowMethods();
+	//static void ShowMethods();
 
 	// Inputs handle -------------------------------------------------------	
 		
@@ -160,7 +160,12 @@ public:
 	double operator / (const Long_Integer_Container& another_Money) const;
 	bool operator > (const Long_Integer_Container& another_Money) const;
 	bool operator<(const Long_Integer_Container& another_Money) const;
-	bool operator==(const Long_Integer_Container& another_Money) const;
+	
+	Long_Integer_Container& operator = (const Long_Integer_Container& Long_Integer_Container_obj)
+	{
+		for (size_t i = 0; i<_size ;i++)
+			_long_values[i] = 
+	}
 
 	long long& operator[](size_t index)	{ return *(_long_values + index); }
 
