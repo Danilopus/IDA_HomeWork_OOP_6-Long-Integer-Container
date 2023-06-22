@@ -20,6 +20,7 @@
 #include "Service functions.h"
 #include "MainMenu.h"
 #include "Long_Integer_Container.h"
+#include "UnitTest.h"
 
 
 
@@ -28,14 +29,14 @@
 
 //Task 1 Long Integer Container class demo with overloaded operators:\n\t + | = | << | >> 
 void Task_1(std::string name_of_task)
-{
-	
+{	
 	do
 	{
 		system("cls");
 		std::cout << "***\t" << name_of_task << "\n";
 
-		UnitTest::Long_Integer_Container();
+		std::string tmp = UnitTest::Long_Integer_Container_test();
+		std::cout << tmp;
 		
 		std::cout << "\n\nEsc - exit | any key to continue";
 	} while (_getch() != 27);
