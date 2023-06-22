@@ -16,13 +16,28 @@ class Long_Integer_Container
 
 	static std::map <int, std::string> codes_of_operation;
 
-	void Add_capacity(size_t capacity_to_add = 5)
+	void Add_capacity(size_t capacity_to_add = 0)
 	{
+		size_t new_capacity = _capacity + capacity_to_add;
+		if (capacity_to_add) 
+			new_capacity += (_capacity > 5 ? _capacity / 2 : 5);
 
+		long long* new_list = new long long[new_capacity];
+		for (int i = 0; i < _size; i++)
+			new_list[i] = _long_values[i];
+		delete[] _long_values;
+		_long_values = new_list;
+		//return *this;
 	}
 	void Shrink_capacity()
 	{
-
+		size_t new_capacity = _size + _size/2;
+		long long* new_list = new long long[new_capacity];
+		for (int i = 0; i < _size; i++)
+			new_list[i] = _long_values[i];
+		delete[] _long_values;
+		_long_values = new_list;
+		//return *this;
 	}
 
 public:
@@ -94,14 +109,6 @@ public:
 	}
 
 	size_t Size() { return _size; }
-	
-	void Clear()
-	{
-		delete[] _long_values;
-		_size = 0;
-		_capacity = 0;
-		_long_values = nullptr;
-	}
 
 	long long int* begin()
 	{
@@ -110,9 +117,15 @@ public:
 	long long int* end()
 	{
 		return &_long_values[_size - 1];
-	}
+	}	
 
-	long long int& operator[](int index);
+	void Clear()
+	{
+		delete[] _long_values;
+		_size = 0;
+		_capacity = 0;
+		_long_values = nullptr;
+	}
 
 	// Shows ---------------------------------------------------------------
 	void ShowValues() { std::cout << this; }
@@ -122,26 +135,6 @@ public:
 		
 	// getch модификация - удобный интерфейс ввода без нажатия Enter и с обработкой Esc, пока только для списков 0..9 (надо придумать как принимать одно- и двух-циферные значения в одном интерфейсе через _getch
 	// getline модификация - c вводом произвольных чисел и конторолем ввода через функцию Get_Int_Positive(), ввод необходимо подтверждать Enter
-
-	//for (;;)
-	//{
-	//	cout << "You are playing for:" << playtime << "seconds." << endl;
-	//	cout << "You have " << bytes << " bytes." << endl;
-	//	cout << "You are compiling " << bps << " bytes per second." << endl;
-	//	cout << "Press a to buy assembler monkey (produces 1 byte per second)/(cost 10 bytes)" << endl;
-	//	if (kbhit()) {  //is true when a key was pressed
-	//		char c = getch();   //capture the key code and insert into c
-
-	//		switch (c)
-	//		{
-	//		case 'a': bytes = bytes - 10; bps++; break;
-	//		}
-	//	}
-	//	bytes = bytes + bps;
-	//	playtime++;
-	//	Sleep(1000);
-	//	system("cls");
-	//}
 
 	static int UserChoiceHandle_getch();
 	static int UserChoiceHandle_getline();

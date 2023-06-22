@@ -17,51 +17,6 @@ Long_Integer_Container::Long_Integer_Container()
 	_long_values = nullptr;
 }
 
-void Long_Integer_Container::Initialisation(int provided_at_startup_money_holders_quantity)
-{
-	for (int i = 0; i < provided_at_startup_money_holders_quantity; i++)
-		new Long_Integer_Container(Get_Random(0, 100), Get_Random(0, 100));
-}
-
-void Long_Integer_Container::Memory_Clean() {}
-
-Long_Integer_Container& Long_Integer_Container::Set_roubles(long long rubles) { _roubles = rubles; return *this; }
-
-Long_Integer_Container& Long_Integer_Container::Set_coins(long long coins)
-{
-	_coins = coins % 100;
-	Set_roubles(_roubles += (coins / 100));
-	return *this;
-}
-
-void Long_Integer_Container::ShowMethods()
-{
-	std::cout << "\n\n -------- Available methods: --------\n";
-	std::cout << "Summation [+] -> [1]" << "\t\t" << "Multyply by [real] -> [5]" << '\n';
-	std::cout << "Substract [-] -> [2]" << "\t\t" << "Divide   by [real] -> [6]" << '\n';
-	std::cout << "Multiply  [*] -> [3]" << "\t\t" << "is_more     [>]    -> [7]" << '\n';
-	std::cout << "Divide    [/] -> [4]" << "\t\t" << "is_less     [<]    -> [8]" << '\n';
-	std::cout <<     "                                is_equal    [=]    -> [9]" << '\n';
-
-
-	// Вариант от дробей	
-	/*std::cout << "\nAvailable methods:\n\nBinary:\t\t\t\t" << "Unary:\n";
-	std::cout << "Summation [+] -> [1]" << "\t\t" << "Prefix increment  [++v] -> [5]" << '\n';
-	std::cout << "Substract [-] -> [2]" << "\t\t" << "Postfix increment [v++] -> [6]" << '\n';
-	std::cout << "Multiply  [*] -> [3]" << "\t\t" << "Prefix decrement  [--v] -> [7]" << '\n';
-	std::cout << "Divide    [/] -> [4]" << "\t\t" << "Postfix decrement [v--] -> [8]" << '\n';
-	std::cout << "\t\t\t\tUnary plus        [+v]  -> [9]" << '\n';
-	std::cout << "\t\t\t\tUnary minus       [-v]  -> [0]" << '\n';*/
-
-}
-
-void Long_Integer_Container::ShowAvailableMoneyObjects()
-{
-	for (int i = 0; i < _money_list.size(); i++)
-		std::cout << "\nMoney holder [" << i + 1 << "] -> " << _money_list[i];
-	//_money_list[i].ShowValues();
-}
-
 int Long_Integer_Container::UserChoiceHandle_getch()
 {
 	std::cout << "Choose method: ";
@@ -296,7 +251,6 @@ std::ostream& operator<<(std::ostream& out, Long_Integer_Container* Long_Integer
 	out << "\b\b]";
 	return out;
 }
-
 std::ostream& operator<<(std::ostream& out, Long_Integer_Container& Long_Integer_Container_obj)
 {
 	out << "[ ";
